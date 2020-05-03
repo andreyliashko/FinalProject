@@ -129,24 +129,13 @@ public class BankService {
 
         return true;
     }
-    /*@Transactional
-    public User addCard(User u){
-
-       entityManager.set(entityManager.indexOf(u), u.addCard());
-
-        return u;
-    }
-    public boolean addMoney(long number, long sum){
-        int j=0;
-        for(int i=0; i<entityManager.size(); i++){
-            j=entityManager.get(i).getNum(number);
-            if(j>=0){
-                entityManager.get(i).cards.get(j).addMoney(sum);
-                return true;
-            }
+    public long userEnter(String login, String password){
+        for(long i=0; i<this.countUsers(); i++){
+            if(this.getUser(i).thisLogAndPass(login, password)) return i;
         }
-        return false;
-    }*/
+        return -1;
+    }
+
 
 
 

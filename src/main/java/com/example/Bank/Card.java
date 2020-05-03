@@ -1,11 +1,15 @@
 package com.example.Bank;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "card")
 public class Card {
     private static int _id=10;

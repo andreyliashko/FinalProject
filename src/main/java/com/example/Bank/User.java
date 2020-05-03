@@ -1,16 +1,19 @@
 package com.example.Bank;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "user")
 public class User {
     private  int amountCard=3;
@@ -27,6 +30,9 @@ public class User {
         this.uniqueWord=UniqueWord;
         this.id=id;
     }
+    public boolean thisLogAndPass(String login, String password){
+        return this.password.equals(password)&&this.login.equals(login);
+    }
     public boolean alreadyExtinct(User u){
         return this.login.equals(u.login)||this.password.equals(u.password)||this.number.equals(u.number);
     }
@@ -42,6 +48,7 @@ public class User {
     }
 
 
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected List<Card> cards=new ArrayList<>();
 
@@ -49,18 +56,29 @@ public class User {
     private long id=0;
 
     @Column(name = "firstName")
+    @NotNull
     private String firstName;
 
     @Column(name = "lastName")
+    @NotNull
     private String lastName;
+
+
     @Column(name = "login")
+    @NotNull
     private String login;
+
     @Column(name = "password")
+    @NotNull
     private String password;
+
     @Column(name = "number")
+    @NotNull
     String number;
+    @NotNull
     @Column(name="uniqueWord")
     String uniqueWord;
+
 
 
     public long getId() {
