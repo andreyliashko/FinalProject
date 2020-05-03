@@ -8,12 +8,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "card")
 public class Card {
-
+    private static int _id=10;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "cardnum")
-    private long cardnum=(long) Math.abs(Math.random()*Math.pow(10, 16));
+    private long cardnum=(long)(Math.random()*Math.pow(10, 16));
+
     @Column(name = "money")
     private long money=0;
 
@@ -27,6 +28,11 @@ public class Card {
 
     public long getMoney() {
         return money;
+    }
+    public long addMoney(long money){
+        if(this.money+money>=0)
+            this.money+=money;
+        return this.money;
     }
     public String toString(){
         return this.cardnum+" "+ this.money;

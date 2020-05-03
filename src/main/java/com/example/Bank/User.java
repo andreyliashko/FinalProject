@@ -13,6 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
     private  int amountCard=3;
+    public int getAmountCard(){
+        return amountCard;
+    }
 
     User(String firstName, String lastName, String login, String password,String number, String UniqueWord){
         this.firstName=firstName;
@@ -21,21 +24,25 @@ public class User {
         this.password=password;
         this.number=number;
         this.uniqueWord=UniqueWord;
+        this.id=id;
+    }
+    public Long setId(long id){
+        this.id=id;
+        return this.id;
     }
 
-    public boolean addCard(){
-        if(--amountCard<0) return false;
-        cards.add(new Card());
-        return true;
+    public User addCard(){
+        if(--amountCard>=0)
+            cards.add(new Card());
+        return this;
     }
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Card> cards=new ArrayList<>();
+    protected List<Card> cards=new ArrayList<>();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long id=0;
 
     @Column(name = "firstname")
     private String firstName;
@@ -76,7 +83,20 @@ public class User {
         return number;
     }
     public String toString(){
-        return this.getFirstName()+" "+this.getLastName()+" "+cards;
+        return this.id+" "+this.getFirstName()+" "+this.getLastName()+" "+cards;
+    }
+    public boolean equals(User u){
+        return this.firstName.equals(u.firstName)&&this.lastName.equals(u.lastName)&&this.login.equals(u.login)
+                &&this.password.equals(u.password)&&this.uniqueWord.equals(u.uniqueWord);
+    }
+
+
+
+    public int getNum(long cardNum){
+        for(int i=0; i<cards.size(); i++){
+            if(cards.get(i).getCardnum()==cardNum) return i;
+        }
+        return -1;
     }
 
     public String getUniqueWord() {
