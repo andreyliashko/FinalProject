@@ -17,15 +17,19 @@ public class BankService {
 
 
     @Transactional
-    public User createUser(String firstName, String lastName, String login, String password,String number, String UniqueWord){
+    public boolean createUser(String firstName, String lastName, String login, String password,String number, String UniqueWord){
         User u=new User(firstName, lastName, login,  password, number,  UniqueWord);
+        if(this.getPlace(u)>=0)return false;
         u.setId(mainId++);
-        return  entityManager.merge(u);
+        entityManager.merge(u);
+        return  true;
     }
     @Transactional
-    public User createUser(User u){
+    public boolean createUser(User u){
+        if(this.getPlace(u)>=0)return false;
         u.setId(mainId++);
-       return entityManager.merge(u);
+        entityManager.merge(u);
+       return true;
     }
     public List<User> getAllUsers(){
         return entityManager.createQuery("from User").getResultList();
@@ -48,6 +52,7 @@ public class BankService {
     public User getUser(long place){
         return entityManager.find(User.class, place);
     }
+
     public long getPlace(User u){
        for(long i=0; i<this.countUsers(); i++){
            if(this.getUser(i).equals(u)) return i;
@@ -86,6 +91,43 @@ public class BankService {
 
         }
         return false;
+    }
+    @Transactional
+    public boolean sendFromCardToCard(long number1, long number2, long sum){
+        long i1=0;
+        int j1=0;
+        for(long i=0; i<this.countUsers(); i++){
+            j1=this.getUser(i).getNum(number1);
+            if(j1>=0){
+                i1=i;
+                i=this.countUsers();
+            }
+        }
+        if(j1<0) return false;
+        User u1=this.getUser(i1);
+        if(u1.cards.get(j1).getMoney()-sum<0)
+            return false;
+        long i2=0;
+        int j2=0;
+        for(long i=0; i<this.countUsers(); i++){
+            j2=this.getUser(i).getNum(number2);
+            if(j2>=0){
+                i2=i;
+                i=this.countUsers();
+            }
+        }
+        if(j2<0) return false;
+        User u2=this.getUser(i2);
+        deleteUser(i1);
+        deleteUser(i2);
+        entityManager.clear();
+        entityManager.flush();
+        u1.cards.get(j1).addMoney(-sum);
+        u2.cards.get(j2).addMoney(sum);
+        entityManager.merge(u1);
+        entityManager.merge(u2);
+
+        return true;
     }
     /*@Transactional
     public User addCard(User u){

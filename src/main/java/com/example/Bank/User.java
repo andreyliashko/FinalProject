@@ -1,6 +1,8 @@
 package com.example.Bank;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,9 +10,8 @@ import java.util.List;
 
 
 @Entity
-
-@Table(name = "user")
 @NoArgsConstructor
+@Table(name = "user")
 public class User {
     private  int amountCard=3;
     public int getAmountCard(){
@@ -25,6 +26,9 @@ public class User {
         this.number=number;
         this.uniqueWord=UniqueWord;
         this.id=id;
+    }
+    public boolean alreadyExtinct(User u){
+        return this.login.equals(u.login)||this.password.equals(u.password)||this.number.equals(u.number);
     }
     public Long setId(long id){
         this.id=id;
@@ -44,18 +48,18 @@ public class User {
     @Id
     private long id=0;
 
-    @Column(name = "firstname")
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "lastname")
+    @Column(name = "lastName")
     private String lastName;
-    @Column(name = "log")
+    @Column(name = "login")
     private String login;
-    @Column(name = "pass")
+    @Column(name = "password")
     private String password;
     @Column(name = "number")
     String number;
-    @Column(name="uniqueword")
+    @Column(name="uniqueWord")
     String uniqueWord;
 
 
