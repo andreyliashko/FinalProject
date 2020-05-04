@@ -2,16 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Replenish</title>
 </head>
 <body>
+<div class="class1">
 <form action="/replenish" method="post">
-    number of card: <br><input name="cardNum">
-    <br>
-    how much money you want to put: <br><input name="sum">
-    <br>
-    <button type="submit">perform</button>
+
+    <div class="class2"> number of card: <br><input name="cardNum"></div>
+    <div class="class2"> how much money you want to put: <br><input name="sum"></div>
+    <div class="class2"><button type="submit">perform</button></div>
+
 </form>
+</div>
 
 </body>
+<style>
+    .class1{
+        width: auto;
+        height: auto;
+        position:absolute;
+        left:500px;
+        top:150px;
+        border: 3px solid blue;
+        border-radius: 3px;
+        font-size: 20px;
+    }
+    .class2{
+        margin: 50px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 20px;
+
+    }
+    a,button, input{
+        box-shadow: none;
+        width:250px;
+        height:60px;
+        font-size: 20px;
+    }
+    input{
+        height: 30px;
+    }
+    button{
+        background: cornflowerblue;
+    }
+
+</style>
 </html>

@@ -112,9 +112,8 @@ public class User {
         return number;
     }
     public String toString(){
-        String s="Hello, "+this.getFirstName()+" "+this.getLastName()+"\n";
-        s+="card available:";
-        return s;
+
+        return "Hello, "+this.getFirstName()+" "+this.getLastName()+"\n";
     }
     public String card1(){
            if(0<cards.size())

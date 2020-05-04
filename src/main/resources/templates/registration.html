@@ -2,27 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Index</title>
+    <title>Registration</title>
 </head>
 <body>
+<div class="class1">
     <form action="/registration" method="post">
-        first name: <br><input name="firstName">
-        <br>
-        last name:<br> <input name="lastName">
-        <br>
-        login:<br> <input name="login">
-        <br>
-        password:<br> <input name="password">
-        <br>
-        number:<br><input name="number">
-        <br>
-        uniqueWord: <br><input name="UniqueWord">
-        <br>
-        <button type="submit" >ok</button>
-    </form>
+        <div class="class2">first name: <br><input name="firstName"></div>
+        <div class="class2"> last name:<br> <input name="lastName"></div>
 
+        <div class="class2"> login:<br> <input name="login"></div>
+        <div class="class2"> password:<br> <input name="password"></div>
+        <div class="class2">number:<br><input name="number"></div>
+        <div class="class2"> uniqueWord: <br><input name="UniqueWord"></div>
+
+
+       <div class="class2"> <button type="submit" >ok</button></div>
+    </form>
+</div>
 
     <style>
+        .class1{
+            width: auto;
+            height: auto;
+            position:absolute;
+            left:500px;
+            top:150px;
+            border: 3px solid blue;
+            border-radius: 3px;
+            font-size: 20px;
+        }
+        .class2{
+            margin: 50px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        button, input{
+            box-shadow: none;
+            width:210px;
+            height:60px;
+            font-size: 20px;
+        }
+        input{
+            height: 30px;
+        }
+        button{
+                background: cornflowerblue;
+        }
 
     </style>
 </body>

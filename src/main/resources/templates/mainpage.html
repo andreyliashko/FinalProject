@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>MainPage</title>
 </head>
 <body>
 <div class="class1">
@@ -10,6 +10,7 @@
     <div class="class2">
         <td  th:text="${bank.toString()}"></td>
     </div>
+    <div class="class2"> Current available card:</div>
 
     <div class="class2">
         <td  th:text="${bank.card1()}"></td>
@@ -21,8 +22,16 @@
         <td  th:text="${bank.card3()}"></td>
     </div>
 </tr>
-    <a href="/addCard" >create new account</a> <br>
-    <a href="/replenish" >replenish card</a> <br>
+
+    <div class="class2"><a href="/addCard" >create new account</a> <br></div>
+    <div class="class2"><a href="/replenish" >replenish card</a> <br></div>
+
+    <div class="class2"><a href="/send" >transfer from card to card</a> <br></div>
+    <div class="class2"><a href="/enter" >exit</a> <br></div>
+
+
+
+
 </div>
 <br>
 
@@ -37,14 +46,30 @@
         height: auto;
         position:absolute;
         left:500px;
-        top:200px;
-        border: 3px solid black;
+        top:150px;
+        border: 3px solid blue;
+        border-radius: 3px;
+        font-size: 20px;
     }
     .class2{
         margin: 50px;
-        margin-bottom: 15px;
-        margin-top: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 20px;
+
+    }
+    button, input{
+        box-shadow: none;
+        width:210px;
+        height:60px;
         font-size: 20px;
     }
+    input{
+        height: 30px;
+    }
+    button{
+        background: cornflowerblue;
+    }
+
 </style>
 </html>

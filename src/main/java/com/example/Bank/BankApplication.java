@@ -7,12 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootApplication
 @Controller
 public class BankApplication {
 	boolean enter=false;
 	private  User user;
 	public static BankService bankService;
+	public static List<String> list=new ArrayList<>();
 
 	public static void main(String[] args) {
 		ApplicationContext apl=SpringApplication.run(BankApplication.class, args);
@@ -40,6 +44,7 @@ public class BankApplication {
 	}
 	@RequestMapping(value = "/enter")
 	public String enterPage(){
+		this.enter=false;
 		return "login";
 	}
 
@@ -84,6 +89,8 @@ public class BankApplication {
 	}
 	@RequestMapping(value = "/send")
 	public String transactPage(){
+		if(enter==false)
+			return "redirect:/enter";
 		return "transfer";
 	}
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
@@ -95,6 +102,8 @@ public class BankApplication {
 		user=bankService.getUser(user.getId());
 		return "redirect:/mainpage";
 	}
+	
+
 
 
 
