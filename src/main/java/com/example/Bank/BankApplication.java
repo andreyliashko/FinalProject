@@ -25,7 +25,7 @@ public class BankApplication {
 
 	@RequestMapping({"/", "/"})
 	public String first(){
-		return "/startpage";
+		return "startpage";
 	}
 	@RequestMapping({"/registration", ""})
 	public String  getRegisterPage(Model model){
@@ -102,7 +102,7 @@ public class BankApplication {
 		user=bankService.getUser(user.getId());
 		return "redirect:/mainpage";
 	}
-	
+
 
 
 
