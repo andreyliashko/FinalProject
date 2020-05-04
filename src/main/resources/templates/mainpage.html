@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<div class="class1">
+<tr th:each="bank:${currentUser}">
+    <div class="class2">
+        <td  th:text="${bank.toString()}"></td>
+    </div>
+
+    <div class="class2">
+        <td  th:text="${bank.card1()}"></td>
+    </div>
+    <div class="class2">
+        <td  th:text="${bank.card2()}"></td>
+    </div>
+    <div class="class2">
+        <td  th:text="${bank.card3()}"></td>
+    </div>
+</tr>
+    <a href="/addCard" >create new account</a> <br>
+    <a href="/replenish" >replenish card</a> <br>
+</div>
+<br>
+
+
+
+
 
 </body>
+<style>
+    .class1{
+        width: auto;
+        height: auto;
+        position:absolute;
+        left:500px;
+        top:200px;
+        border: 3px solid black;
+    }
+    .class2{
+        margin: 50px;
+        margin-bottom: 15px;
+        margin-top: 15px;
+        font-size: 20px;
+    }
+</style>
 </html>

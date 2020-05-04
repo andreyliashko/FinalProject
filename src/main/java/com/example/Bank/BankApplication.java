@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class BankApplication {
 	boolean enter=false;
-	private static User user;
+	private  User user;
 	public static BankService bankService;
 
 	public static void main(String[] args) {
@@ -47,6 +47,7 @@ public class BankApplication {
 	public String getUser(Model model){
 		if(enter==false)
 			return "redirect:/enter";
+		model.addAttribute("currentUser", user);
 		return "mainpage";
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -56,6 +57,42 @@ public class BankApplication {
 			user=bankService.getUser(i);
 			enter=true;
 		}
+		return "redirect:/mainpage";
+	}
+	@RequestMapping(value = "/addCard")
+	public String getNewCard(){
+		if(enter!=true)
+			return "redirect:/enter";
+		bankService.addCard(user);
+		user=bankService.getUser(user.getId());
+		return "redirect:/mainpage";
+	}
+	@RequestMapping({"/replenish", ""})
+	public String getPage(){
+		if(enter!=true)
+			return "redirect:/enter";
+		return "replenish";
+	}
+	@RequestMapping(value = "/replenish", method = RequestMethod.POST)
+	public String addMoney(@RequestParam("cardNum") long cardnum, @RequestParam("sum")long sum) {
+
+		if(enter!=true)
+			return "redirect:/enter";
+		bankService.addMoney(cardnum, sum);
+		user=bankService.getUser(user.getId());
+		return "redirect:/mainpage";
+	}
+	@RequestMapping(value = "/send")
+	public String transactPage(){
+		return "transfer";
+	}
+	@RequestMapping(value = "/send", method = RequestMethod.POST)
+	public String transfer(@RequestParam("card1") long card1, @RequestParam("card2")long card2, @RequestParam("sum")long sum){
+		if(enter!=true)
+			return "redirect:/enter";
+		if(sum<=0||!user.containsCard(card1)) return "redirect:/mainpage";
+		bankService.sendFromCardToCard(card1, card2, sum);
+		user=bankService.getUser(user.getId());
 		return "redirect:/mainpage";
 	}
 

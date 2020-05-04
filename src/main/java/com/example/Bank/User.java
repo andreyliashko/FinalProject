@@ -1,13 +1,13 @@
 package com.example.Bank;
 
-import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -17,6 +17,7 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
     private  int amountCard=3;
+    private static long numCard=(long)(Math.random()*Math.pow(10,16));
     public int getAmountCard(){
         return amountCard;
     }
@@ -45,6 +46,12 @@ public class User {
         if(--amountCard>=0)
             cards.add(new Card());
         return this;
+    }
+    public boolean containsCard(long card){
+        for(int i=0; i<cards.size(); i++){
+            if(cards.get(i).getCardnum()==card) return true;
+        }
+        return false;
     }
 
 
@@ -105,7 +112,27 @@ public class User {
         return number;
     }
     public String toString(){
-        return this.id+" "+this.getFirstName()+" "+this.getLastName()+" "+cards;
+        String s="Hello, "+this.getFirstName()+" "+this.getLastName()+"\n";
+        s+="card available:";
+        return s;
+    }
+    public String card1(){
+           if(0<cards.size())
+               return ""+cards.get(0);
+        return "";
+
+    }
+    public String card2(){
+        if(1<cards.size())
+            return ""+cards.get(1);
+        return "";
+
+    }
+    public String card3(){
+        if(2<cards.size())
+            return ""+cards.get(2);
+        return "";
+
     }
     public boolean equals(User u){
         return this.firstName.equals(u.firstName)&&this.lastName.equals(u.lastName)&&this.login.equals(u.login)

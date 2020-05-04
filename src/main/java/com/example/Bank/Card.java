@@ -17,7 +17,7 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "cardnum")
-    private long cardnum=(long)(Math.random()*Math.pow(10, 16));
+    private long cardnum=(long)(Math.random()*Math.pow(10,16)+(_id+=3));
 
     @Column(name = "money")
     private long money=0;
